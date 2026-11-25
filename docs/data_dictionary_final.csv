@@ -1,0 +1,139 @@
+﻿table,column,data_type,missing,unique_values,example,description
+branches,branch_id,str,0,6,DEL001,Unique branch code (primary key)
+branches,branch_name,str,0,6,Delhi Central,Branch name
+branches,city,str,0,6,Delhi,City of the branch
+branches,state,str,0,6,Delhi,State of the branch
+branches,region,str,0,4,North,Business region of the branch
+branches,warehouse_type,str,0,4,Central,Type of warehouse
+branches,warehouse_capacity,str,0,6,45230 sqft,"Warehouse floor area, stored as text with unit (e.g. sqft); convert to number before analysis"
+branches,service_center_available,str,0,2,Yes,Whether the branch has a service centre
+branches,manager_id,int64,0,6,9593,ID of the branch manager
+branches,total_employees,int64,0,6,92,Number of employees at the branch
+branches,avg_monthly_revenue,int64,0,6,5234890,Average monthly revenue (currency not stated)
+branches,monthly_operational_cost,int64,0,6,3189000,Monthly operating cost (currency not stated)
+branches,market_demand_index,int64,0,4,9,Score for local market demand; scale not documented
+customers,customer_id,str,0,500,C0001,Unique customer code (primary key)
+customers,customer_type,str,0,5,Retail,Category of customer (e.g. Retail)
+customers,industry_segment,str,0,6,Construction,Customer's industry
+customers,city,str,0,21,Kolkata,Customer city
+customers,state,str,0,16,West Bengal,Customer state
+customers,pincode,int64,0,500,991035,"Postal code; treat as a label, not a number"
+customers,region,str,0,6,East,Customer region
+customers,branch_id,str,0,6,KOL001,Branch linked to the customer (joins to branches)
+customers,credit_limit,int64,0,500,45896,Maximum credit allowed
+customers,current_balance,int64,0,499,43284,"Current account balance, likely amount outstanding"
+customers,payment_terms,str,0,5,Advance,Agreed payment terms (e.g. Advance)
+customers,customer_since,date,0,467,2024-04-10,Date the customer relationship started
+customers,last_purchase_date,date,0,449,2024-04-25,Date of latest purchase; verify against sales orders
+customers,total_purchase_value,int64,0,500,3892818,Total purchase value; verify against sales orders
+customers,customer_rating,int64,0,5,4,Customer rating score; scale not documented
+inventory_master,product_id,str,0,30,P001,Product code (joins to products); with branch_id identifies a row
+inventory_master,branch_id,str,0,6,DEL001,Branch code (joins to branches)
+inventory_master,opening_stock,int64,0,127,196,Starting stock quantity
+inventory_master,reorder_level,int64,0,75,59,Stock level at which to reorder
+inventory_master,safety_stock,int64,0,63,46,Buffer stock quantity
+inventory_master,max_stock,int64,0,148,340,Maximum intended stock quantity
+inventory_master,current_stock,int64,0,180,115928,Current stock quantity; exceeds max_stock in all rows
+inventory_master,warehouse_bin,str,0,95,C15,Storage bin location
+invoices,invoice_key,int64,0,18033,1,Added during cleaning: unique row number
+invoices,invoice_id,str,0,17836,INV-325361,Invoice number; NOT unique in source data
+invoices,so_id,str,0,18033,SO-990591,Sales order billed (joins to sales_orders_header)
+invoices,customer_id,str,0,500,C0070,Customer billed (joins to customers)
+invoices,branch_id,str,0,6,AHM001,Issuing branch (joins to branches)
+invoices,invoice_date,date,0,2203,2022-05-28,Date the invoice was issued
+invoices,due_date,date,0,2235,2022-06-27,Payment due date
+invoices,total_order_value,int64,0,16248,1345720,Order value before GST
+invoices,total_gst_amount,float64,0,16951,374439.6,Total GST (tax) amount
+invoices,grand_total,float64,0,16938,1720159.6,Order value plus GST
+invoices,payment_status,str,0,3,Unpaid,"Payment state of the invoice (e.g. Paid, Unpaid)"
+invoices,ambiguous_id,bool,0,2,False,Added during cleaning: True if invoice_id appears more than once
+payments,payment_key,int64,0,19257,1,Added during cleaning: unique row number
+payments,payment_id,str,0,19055,PAY-207775,Payment number; NOT unique in source data
+payments,invoice_id,str,0,16036,INV-786913,Invoice being paid (joins to invoices; check ambiguity flag)
+payments,payment_date,date,0,2243,2023-10-07,Date of payment
+payments,payment_amount,float64,0,18778,3354624.0,Amount paid
+payments,payment_method,str,0,5,Cheque,How the payment was made (e.g. Cheque)
+payments,ambiguous_invoice,bool,0,2,False,Added during cleaning: True if invoice_id is duplicated in invoices
+products,product_id,str,0,30,P001,Unique product code (primary key)
+products,product_name,str,0,30,Hydraulic Pump HP-300,Product name
+products,category,str,0,15,Hydraulic,Product category
+products,machine_type,str,0,6,Excavator,Type of machine the product is for
+products,brand,str,0,6,CAT,Brand
+products,model_compatibility,str,0,18,CAT 320D,Compatible machine model
+products,unit_cost,int64,0,30,18950,Cost per unit
+products,unit_price,int64,0,28,24500,Selling price per unit
+products,margin_percentage,float64,0,30,29.2,Profit margin in percent; confirm formula (example looks closer to markup on cost)
+products,gst_rate,int64,0,2,28,GST rate in percent
+products,weight_kg,float64,0,29,38.5,Weight in kilograms
+products,dimensions_cm,str,0,29,40x25x25,"Dimensions in centimetres, stored as text"
+products,material_type,str,0,10,steel,Material
+products,warranty_months,int64,0,5,12,Warranty period in months
+products,reorder_level,int64,0,20,15,Product-level reorder level
+products,safety_stock,int64,0,17,10,Product-level safety stock
+products,max_stock_level,int64,0,19,40,Product-level maximum stock
+products,lead_time_days,int64,0,19,21,Replenishment lead time in days
+products,criticality_level,str,0,3,High,Importance level of the product
+products,usage_frequency,str,0,3,Medium,How often the product is used
+products,uom,str,0,3,piece,Unit of measure (e.g. piece)
+products,last_purchase_price,int64,0,30,18500,Price at latest purchase
+products,last_purchase_date,date,0,30,2019-03-15,Date of latest purchase; verify against purchase orders
+purchase_orders_header,po_id,str,0,24000,PO-141186,Unique purchase order number (primary key)
+purchase_orders_header,supplier_id,str,0,8,SUP0001,Supplier (joins to suppliers)
+purchase_orders_header,branch_id,str,0,6,PUN001,Ordering branch (joins to branches)
+purchase_orders_header,order_date,date,0,2192,2019-04-10,Date the order was placed
+purchase_orders_header,expected_delivery_date,date,0,2207,2019-04-29,Expected delivery date
+purchase_orders_header,received_date,date,2370,2207,2019-04-29,Date goods were received; blank for Cancelled orders
+purchase_orders_header,po_status,str,0,2,Received,Order status (Received or Cancelled)
+purchase_orders_header,total_cost,float64,0,24000,22955232.11,Order cost before GST
+purchase_orders_header,total_gst_amount,float64,0,24000,6427464.990800001,Total GST amount
+purchase_orders_header,grand_total,float64,0,24000,29382697.1008,Cost plus GST
+purchase_orders_lines,po_id,str,0,24000,PO-141186,Purchase order number (joins to purchase_orders_header)
+purchase_orders_lines,line_number,int64,0,12,1,Item line within the order; with po_id identifies a row
+purchase_orders_lines,product_id,str,0,30,P004,Product ordered (joins to products)
+purchase_orders_lines,quantity,int64,0,281,234,Quantity ordered
+purchase_orders_lines,unit_cost,float64,0,142292,34709.54,Cost per unit on this order
+purchase_orders_lines,gst_rate,int64,0,2,28,GST rate in percent
+purchase_orders_lines,line_total,float64,0,155224,8122032.36,"quantity x unit_cost, before GST"
+purchase_orders_lines,gst_amount,float64,0,155254,2274169.0608,GST on this line
+purchase_orders_lines,line_grand_total,float64,0,155269,10396201.4208,line_total plus gst_amount
+sales_orders_header,so_id,str,0,20000,SO-990591,Unique sales order number (primary key)
+sales_orders_header,customer_id,str,0,500,C0070,Customer (joins to customers)
+sales_orders_header,branch_id,str,0,6,AHM001,Selling branch (joins to branches)
+sales_orders_header,order_date,date,0,2192,2022-05-24,Date the order was placed
+sales_orders_header,delivery_date,date,0,2204,2022-05-28,Delivery date
+sales_orders_header,order_status,str,0,2,Delivered,Order status (e.g. Delivered)
+sales_orders_header,payment_terms,str,0,5,Net 30,Payment terms for the order
+sales_orders_header,total_order_value,int64,0,17905,1345720,Order value before GST
+sales_orders_header,total_gst_amount,float64,0,18749,374439.6,Total GST amount
+sales_orders_header,grand_total,float64,0,18735,1720159.6,Order value plus GST
+sales_orders_header,sales_channel,str,0,4,Counter Sale,Channel of the sale (e.g. Counter Sale)
+sales_orders_lines,so_id,str,0,20000,SO-990591,Sales order number (joins to sales_orders_header)
+sales_orders_lines,line_number,int64,0,12,1,Item line within the order; with so_id identifies a row
+sales_orders_lines,product_id,str,0,30,P018,Product sold (joins to products)
+sales_orders_lines,quantity,int64,0,20,19,Quantity sold
+sales_orders_lines,unit_price,int64,0,28,11300,Selling price per unit
+sales_orders_lines,gst_rate,int64,0,2,28,GST rate in percent
+sales_orders_lines,line_total,int64,0,534,214700,"quantity x unit_price, before GST"
+sales_orders_lines,gst_amount,float64,0,534,60116.00000000001,GST on this line
+sales_orders_lines,line_grand_total,float64,0,534,274816.0,line_total plus gst_amount
+stock_ledger,movement_id,str,0,237230,MOV-OUT-184742,Unique stock movement ID (primary key)
+stock_ledger,product_id,str,0,30,P001,Product moved (joins to products)
+stock_ledger,branch_id,str,0,6,AHM001,Branch where stock moved (joins to branches)
+stock_ledger,movement_type,str,0,3,OUT,"IN, OUT or ADJUSTMENT"
+stock_ledger,movement_date,date,0,2218,2019-01-03,Date of movement
+stock_ledger,quantity,int64,0,300,8,Quantity moved
+stock_ledger,reference_type,str,0,3,SO,"Source of movement: PO, SO or ADJ"
+stock_ledger,reference_id,str,0,43709,SO-157767,"ID of the source record (PO or SO number, or adjustment reference)"
+stock_ledger,running_balance,int64,0,98171,228,Stock balance after the movement
+suppliers,supplier_id,str,0,8,SUP0001,Unique supplier code (primary key)
+suppliers,supplier_name,str,0,8,Shenzhen OEM Supplies,Supplier name
+suppliers,supplier_type,str,0,3,OEM,Type of supplier (e.g. OEM)
+suppliers,product_category,str,0,3,Medium Parts,Category of parts supplied
+suppliers,city,str,0,8,Shenzhen,Supplier city
+suppliers,province,str,0,6,Guangdong,Supplier province
+suppliers,region,str,0,3,South China,Supplier region
+suppliers,pincode,int64,0,8,586808,Postal code; treat as a label
+suppliers,lead_time_days,int64,0,7,19,Supplier lead time in days
+suppliers,reliability_score,int64,0,3,5,Reliability rating; scale not documented
+suppliers,import_duty_rate,int64,0,4,8,"Import duty rate, assumed percent"
+suppliers,china_tax_id,str,0,8,90SUZHOU398241,Supplier tax identification number
