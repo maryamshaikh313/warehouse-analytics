@@ -1,4 +1,4 @@
-# Week 1 Sprint Note
+# Phase 1 Sprint Note (Weeks 1–3)
 
 **Project:** Heavy Supplier, Inventory & Warehouse Analytics
 **Participant:** Maryam Shaikh (solo)
@@ -19,7 +19,7 @@ Understand the dataset, check and clean it, document it, and calculate the first
 - Duplicate invoice and payment IDs
 - Current stock is above maximum stock in all 180 inventory rows
 
-## Next steps (Week 2)
+## Next steps (Phase 2)
 - Verify the assumed column descriptions and customer summary columns
 - Check product-wise and branch-wise performance
 - Investigate cancellations and late deliveries
