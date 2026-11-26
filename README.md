@@ -20,6 +20,7 @@ The data files are not included in this repository.
 | `week03/` | Data dictionary, first KPIs and KPI summary |
 | `week04/` | Product performance, ABC classification and product summary |
 | `week05/` | Inventory health, turnover, stock value and summary |
+| `week06/` | Warehouse operations analysis and summary |
 | `docs/` | Sprint notes |
 
 ## How to run
@@ -34,6 +35,7 @@ The data files are not included in this repository.
    6. `week03/kpis.py`
    7. `week04/product_performance.py` (creates `week04/product_performance.csv`)
    8. `week05/inventory_health.py` (creates `week05/inventory_health.csv`)
+   9. `week06/warehouse_analysis.py` (creates `week06/warehouse_performance.csv`)
 
 ## Phase 1 results (Weeks 1–3)
 | KPI | Result |
@@ -44,15 +46,17 @@ The data files are not included in this repository.
 | Purchase order cancellation rate | 9.88% |
 | On-time delivery rate | 84.90% |
 
-## Week 4 results
-- 10 of 30 products (class A) generate 81.53% of sales
-- Engine Block EB-600 and Transmission Assembly TA-800 generate about 36% of sales
-- Units sold are similar across products, so movement labels are relative
+## Phase 2 results (Weeks 4–6)
+| Area | Result |
+|---|---|
+| Products (Week 4) | 10 of 30 products (class A) generate 81.53% of sales |
+| Top products (Week 4) | Engine Block EB-600 and Transmission Assembly TA-800 generate about 36% of sales |
+| Inventory records (Week 5) | Current stock matches the stock ledger in 166 of 180 records |
+| Stock health (Week 5) | All 180 records are above maximum stock; mean 2024 unit turnover is 0.0104 |
+| Warehouses (Week 6) | CHN001 handled the most units in 2024 |
+| Workload (Week 6) | KOL001 has the highest throughput per employee and DEL001 the lowest |
 
-## Week 5 results
-- Current stock matches the stock ledger in 166 of 180 records
-- All 180 records are above maximum stock
-- Mean 2024 unit turnover is 0.0104, so stock figures are treated as a data limitation
+Stock figures and branch table revenue do not agree well with other data, so related results should be treated with caution. Units sold are similar across products, so Fast/Medium/Slow labels are relative.
 
 ## Data issues found
 - 2,370 blank received dates, all on cancelled purchase orders
@@ -64,8 +68,10 @@ The data files are not included in this repository.
 - [Phase 1 sprint note (Weeks 1–3)](docs/week01_sprint_note.md)
 - [Week 4 sprint note](docs/week04_sprint_note.md)
 - [Week 5 sprint note](docs/week05_sprint_note.md)
+- [Week 6 sprint note](docs/week06_sprint_note.md)
 - [Data quality report](week02/week01_data_quality_report.md)
 - [KPI summary](week03/week01_kpi_summary.md)
 - [Data dictionary](week03/data_dictionary_final.csv)
 - [Product performance summary](week04/week04_product_summary.md)
 - [Inventory health summary](week05/week05_inventory_summary.md)
+- [Warehouse operations summary](week06/week06_warehouse_summary.md)
